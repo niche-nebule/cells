@@ -2,6 +2,8 @@ package main;
 
 import "core:fmt";
 import "core:os";
+import "core:math/rand";
+import "core:strconv";
 
 Cell :: struct {
 	hunger : u32,
@@ -10,28 +12,17 @@ Cell :: struct {
 
 main :: proc() {
 	buf: [256]byte;
-	str := getText(buf[:]);
+	maxDudes, err := strconv.parse_uint(readLine(buf[:]), 10);
+	
+	pee := int(maxDudes);
 
-	fmt.println(str);
-	fmt.println(getText(buf[:]));
-	//creatures : []Cell;
+	creatures := make([]Cell, pee);
 
-	//for i := 1; i < 10; i += 1 {	
-
-	//}
+	for i := 0; i < pee; i += 1 {
+		creatures[i].power = 12;
+		fmt.println(creatures[i].power);
+			
+	}
 
 }
 
-getText :: proc(buf: []byte) -> string {
-	fmt.print("Enter text: ");
-	n, err := os.read(os.stdin, buf);
-	if err != nil {
-		fmt.eprintln("Error!!!!: ", err);
-		return "help";
-	}
-	str := string(buf[:n]);
-	if (str == "\n") {
-		fmt.print("You entered a new line!");
-	}
-	return str;
-}
