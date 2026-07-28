@@ -10,7 +10,19 @@ import "core:strings";
 Cell :: struct {
 	hunger : u32,
 	power: u32,
-	name: string
+	name: string,
+	alive: bool,
+	trait : Trait
+}
+
+Trait :: enum {
+	strong,
+	weak,
+	insane,
+	starved,
+	full,
+	aggresive,
+	happy
 }
 
 
@@ -32,14 +44,12 @@ main :: proc() {
 	creature := make([]Cell, pee);
 
 	for i in 0..<pee {
-		creature[i].power = rand.uint32_max(100);
-		creature[i].hunger = rand.uint32_max(100);
-		creature[i].name = nameGen();
-		fmt.println(creature[i].name, "has", creature[i].power, "power and", creature[i].hunger, "hunger." );
-		
-	
-			
+		generateCreature(&creature[i])
+		creature[i].alive = creature[i].power > 50
+		printFull(creature[i])
 	}
+
+
 
 }
 
